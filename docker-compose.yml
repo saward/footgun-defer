@@ -1,0 +1,18 @@
+version: '3.9'
+
+x-postgres: &default-postgres
+  ports:
+    - '5432:5432'
+  environment:
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+  command: ['postgres', '-c', 'log_statement=all']
+  restart: 'no'
+
+services:
+  postgres:
+    build:
+      context: database
+      dockerfile: Dockerfile
+    container_name: footgun
+    <<: *default-postgres
